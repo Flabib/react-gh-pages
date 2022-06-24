@@ -35,6 +35,12 @@ class App extends React.Component {
     this.setState({ routines: routines });
   };
 
+  onDelete = (routineId) => {
+    const routines = this.state.routines.filter((routine) => routine.id !== routineId);
+
+    this.setState({ routines: routines });
+  }
+
   queryFilter = (routine) => routine.content.toLowerCase().includes(this.state.query.toLowerCase());
 
   render() {
@@ -42,7 +48,10 @@ class App extends React.Component {
       <>
         <NavBar onSearchChange={this.onSearchChange} />
 
-        <Container routines={this.state.routines.filter(this.queryFilter)} onIsCompleteChange={this.onIsCompleteChange} />
+        <Container
+          routines={this.state.routines.filter(this.queryFilter)}
+          onIsCompleteChange={this.onIsCompleteChange}
+          onDelete={this.onDelete} />
       </>
     );
   }

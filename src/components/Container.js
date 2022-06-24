@@ -1,13 +1,14 @@
 import RoutineItem from "./RoutineItem";
 
-const Container = ({ routines, onIsCompleteChange }) => {
+const Container = ({ routines, onIsCompleteChange, onDelete }) => {
   return (
     <div className="container mx-auto max-w-lg">
-      {
-        routines.map((routine) => {
-          return <RoutineItem key={routine.content} routine={routine} onIsCompleteChange={onIsCompleteChange} />;
-        })
-      }
+      {routines.map((routine) => <RoutineItem
+        key={routine.content}
+        routine={routine}
+        onIsCompleteChange={onIsCompleteChange}
+        onDelete={onDelete} />
+      )}
     </div>
   );
 };
