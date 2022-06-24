@@ -1,11 +1,11 @@
-import Routine from "./Routine";
+import RoutineItem from "./RoutineItem";
 
-const Container = ({ routines }) => {
+const Container = ({ routines, onIsCompleteChange }) => {
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto max-w-lg">
       {
         routines.map((routine) => {
-          return <Routine content={routine} />;
+          return <RoutineItem key={routine.content} routine={routine} onIsCompleteChange={onIsCompleteChange} />;
         })
       }
     </div>

@@ -1,20 +1,51 @@
+import React from "react";
 import Container from "./components/Container";
 import NavBar from "./components/NavBar";
 
-const App = () => {
-  const routines = [
-    'Bangun Tidur',
-    'Mandi',
-    'Menggosok Gigi'
-  ];
+import generateRoutines from "./data/RoutineData";
 
-  return (
-    <>
-      <NavBar />
+class App extends React.Component {
 
-      <Container routines={routines} />
-    </>
-  );
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      routines: generateRoutines(),
+      query: ''
+    };
+  }
+
+  onSearchChange = (query) => {
+    this.setState((prevState) => {
+      return {
+        ...prevState,
+        query: query
+      };
+    })
+  }
+
+  onIsCompleteChange = (routineId) => {
+    const routines = this.state.routines.map((routine) => {
+      if (routine.id !== routineId) return routine;
+
+      routine.isComplete = !routine.isComplete;
+      return routine;
+    });
+
+    this.setState({ routines: routines });
+  };
+
+  queryFilter = (routine) => routine.content.toLowerCase().includes(this.state.query.toLowerCase());
+
+  render() {
+    return (
+      <>
+        <NavBar onSearchChange={this.onSearchChange} />
+
+        <Container routines={this.state.routines.filter(this.queryFilter)} onIsCompleteChange={this.onIsCompleteChange} />
+      </>
+    );
+  }
 }
 
 export default App;

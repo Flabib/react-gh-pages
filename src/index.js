@@ -7,6 +7,6 @@ import './App.scss';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App message='Hello World!' />
+    <App />
   </React.StrictMode>
 );
